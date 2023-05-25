@@ -1,0 +1,29 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <Wire.h>
+
+int led = D12;
+
+
+void setup()
+{
+    Wire.begin(0x5);//inputs can be taken in addr 5
+    Wire.onReceive(receiveEvent);
+    
+    pinMode(led,OUTPUT);
+    digitalWrite(led,LOW);//LED is set to off
+
+}
+void receiveEvent(int howMany)
+{
+    while (Wire.available())
+    {
+        int x = Wire.read();
+        digitalWrite(led,x);
+    } 
+}
+
+
+void loop() 
+{
+    delay(100);
+}
